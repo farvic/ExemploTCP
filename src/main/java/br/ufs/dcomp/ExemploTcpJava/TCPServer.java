@@ -24,10 +24,18 @@ public class TCPServer{
             System.out.print("[ Aguardando recebimento de mensagem   ..............  ");
             is.read(buf); // Operação bloqueante (aguardando chegada de dados)
             System.out.println("[OK] ]");
+
             
             String msg = new String(buf); // Mapeando vetor de bytes recebido para String
             
             System.out.println("  Mensagem recebida: "+ msg);
+            
+            String msgResp = "Resposta.";
+            
+            buf = msgResp.getBytes();
+            
+            os.write(buf);
+            
         }catch(Exception e){System.out.println(e);}    
         System.out.println("[ FIM ]");
     }
