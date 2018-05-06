@@ -1,10 +1,14 @@
 /**
  * @author Tarcisio da Rocha (Prof. DCOMP/UFS)
+ * Modified by: Victor Fonseca
  */
 package br.ufs.dcomp.ExemploTcpJava;
 
 import java.net.*;
 import java.io.*;
+import java.util.Scanner;
+import java.awt.Event;
+
 public class TCPClient{
     public static void main(String[] args){
         try {
@@ -14,21 +18,24 @@ public class TCPClient{
             
             InputStream is = sock.getInputStream(); // Canal de entrada de dados
             OutputStream os = sock.getOutputStream(); // Canal de saída de dados
-            String msg = "Olá, DCOMP!!!";
-            byte[] buf = msg.getBytes(); // Obtendo a respresntação em bytes da mensagem
+            
+            Scanner sc = new Scanner(System.in);
+            
+            while(true){
+                String msg = sc.nextLine();
+                byte[] buf = msg.getBytes(); // Obtendo a respresntação em bytes da mensagem
 
-            System.out.print("[ Enviando mensagem    ..............................  ");
-            os.write(buf);
-            System.out.println("[OK] ]");
+                os.write(buf);
+
+                byte[] bufR = new byte[20];
             
-            byte[] bufR = new byte[20];
-            
-            is.read(bufR);
-            
-            String msgResp = new String(bufR);
-            System.out.print("[ Aguardando recebimento de mensagem   ..............  ");
-            System.out.println("[OK] ]");
-            System.out.println(msgResp);
+                is.read(bufR);
+                
+                String msgResp = new String(bufR);
+
+                System.out.println(msgResp); 
+            }
+
             
         }catch(Exception e){System.out.println(e);}    
         System.out.println("[ FIM ]");
